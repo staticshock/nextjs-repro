@@ -1,36 +1,36 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+To reproduce issue
+---
 
-## Getting Started
+1. Run `pnpm install && pnpm dev --turbo`
+2. Open app in browser (https://localhost:3000)
+3. Save any simple change to app/page.tsx (e.g. add a character literal to the output)
 
-First, run the development server:
+The app will crash with the following error:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+    Error: Module [project]/node_modules/.pnpm/next@14.2.23_@babel+core@7.26.0_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/esm/client/components/error-boundary.js [app-ssr] (ecmascript) was instantiated because it was required from module [project]/node_modules/.pnpm/next@14.2.23_@babel+core@7.26.0_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/esm/build/templates/app-page.js?page=/page { COMPONENT_0 => "[project]/app/layout.tsx [app-rsc] (ecmascript, Next.js server component)", COMPONENT_1 => "[project]/node_modules/.pnpm/next@14.2.23_@babel+core@7.26.0_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/client/components/not-found-error.js [app-rsc] (ecmascript, Next.js server component)", COMPONENT_2 => "[project]/app/page.tsx [app-rsc] (ecmascript, Next.js server component)", METADATA_3 => "[project]/app/favicon.ico.mjs { IMAGE => \"[project]/app/favicon.ico [app-rsc] (static)\" } [app-rsc] (structured image object, ecmascript)" } [app-rsc] (ecmascript) <locals>, but the module factory is not available. It might have been deleted in an HMR update.
+        at instantiateModule (/nextjs-repro/.next/server/chunks/ssr/[turbopack]_runtime.js:492:15)
+        at getOrInstantiateModuleFromParent (/nextjs-repro/.next/server/chunks/ssr/[turbopack]_runtime.js:572:12)
+        at commonJsRequire (/nextjs-repro/.next/server/chunks/ssr/[turbopack]_runtime.js:136:20)
+        at require (/nextjs-repro/node_modules/.pnpm/next@14.2.23_@babel+core@7.26.0_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:39:20088)
+        at /nextjs-repro/node_modules/.pnpm/next@14.2.23_@babel+core@7.26.0_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:35:89292
+        at eo (/nextjs-repro/node_modules/.pnpm/next@14.2.23_@babel+core@7.26.0_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:35:89477)
+        at /nextjs-repro/node_modules/.pnpm/next@14.2.23_@babel+core@7.26.0_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:35:91706
+        at Object._fromJSON (/nextjs-repro/node_modules/.pnpm/next@14.2.23_@babel+core@7.26.0_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:35:92262)
+        at JSON.parse (<anonymous>)
+        at eu (/nextjs-repro/node_modules/.pnpm/next@14.2.23_@babel+core@7.26.0_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:35:89971)
+        at en (/nextjs-repro/node_modules/.pnpm/next@14.2.23_@babel+core@7.26.0_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:35:89039)
+        at /nextjs-repro/node_modules/.pnpm/next@14.2.23_@babel+core@7.26.0_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:35:96197
+        at /nextjs-repro/node_modules/.pnpm/next@14.2.23_@babel+core@7.26.0_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:35:96214
+        at /nextjs-repro/node_modules/.pnpm/next@14.2.23_@babel+core@7.26.0_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:35:96247
+        at /nextjs-repro/node_modules/.pnpm/next@14.2.23_@babel+core@7.26.0_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:35:96264
+        at t (/nextjs-repro/node_modules/.pnpm/next@14.2.23_@babel+core@7.26.0_@opentelemetry+api@1.9.0_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/next/dist/compiled/next-server/app-page.runtime.dev.js:35:96487)
+     ⨯     at instantiateModule (/nextjs-repro/.next/server/chunks/ssr/[turbopack]_runtime.js:492:15)
+        at getOrInstantiateModuleFromParent (/nextjs-repro/.next/server/chunks/ssr/[turbopack]_runtime.js:572:12)
+        at commonJsRequire (/nextjs-repro/.next/server/chunks/ssr/[turbopack]_runtime.js:136:20)
+        at JSON.parse (<anonymous>)
+    digest: "2437251089"
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Misc
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+The boilerplate in this repo was seeded w/ `pnpx create-next-app@latest` + `pnpx @sentry/wizard@latest -i nextjs`.
